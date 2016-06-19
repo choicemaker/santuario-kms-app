@@ -7,20 +7,6 @@ Quickstart:
 
 2. Create a managed AWS user
 
-#3. Create an encryption key(s)
-#
-#   * Create a managed AWS key
-#
-#   * Or create (and optionally encrypt) an RSA PKCS#8 escrow key
-#
-#     ```
-#     [create]  openssl genrsa -out key.pem 2048
-#     [encrypt] openssl rsa -in key.pem -des3 -out enc-key.pem
-#     [pkcs#8]  openssl pkcs8 -topk8 -in enc-key.pem -out enc-key.pkcs8.pem
-#     ```
-#
-#   * Or create both a managed key and an escrow key
-
 3. Create a managed AWS key
 
 4. Create a santuario-kms.properties file
