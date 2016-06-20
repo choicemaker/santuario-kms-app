@@ -97,14 +97,16 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
                 <artifactSet>
                   <excludes>
                     <exclude>org.bouncycastle:*</exclude>
+<!--
                     <exclude>com.amazonaws:*</exclude>
-                    <exclude>com.google*:*</exclude>
                     <exclude>org.apache*:*</exclude>
+                    <exclude>org.slf4j:*</exclude>
+                    <exclude>commons-logging:commons-logging</exclude>
+
+                    <exclude>com.google*:*</exclude>
                     <exclude>com.fasterxml*:*</exclude>
                     <exclude>joda-time:joda-time</exclude>
                     <exclude>commons-codec:commons-codec</exclude>
-                    <exclude>commons-logging:commons-logging</exclude>
-                    <exclude>org.slf4j:*</exclude>
                     <exclude>org.jasypt:*</exclude>
                     <exclude>org.cryptacular*:*</exclude>
                     <exclude>org.opensaml:*</exclude>
@@ -112,11 +114,12 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
                     <exclude>net.sf.ehcache:*</exclude>
                     <exclude>net.shibboleth*:*</exclude>
                     <exclude>javax*:*</exclude>
+-->
                   </excludes>
                 </artifactSet>
 
-				        <minimizeJar>true</minimizeJar>
 <!--
+				        <minimizeJar>true</minimizeJar>
 -->
 <!--
                 <filters>
@@ -217,12 +220,17 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
       <artifactId>commons-cli</artifactId>
       <version>1.3.1</version>
     </dependency>
-<!--
     <dependency>
-      <groupId>org.bouncycastle</groupId>
-      <artifactId>bcprov-jdk15on</artifactId>
-      <version>${bouncycastle.version}</version>
+      <groupId>com.choicemaker.xml</groupId>
+      <artifactId>santuario-kms</artifactId>
+      <version>${santuario-kms.version}</version>
     </dependency>
+<!--
+		<dependency>
+		  <groupId>org.bouncycastle</groupId>
+	      <artifactId>bcprov-jdk15on</artifactId>
+		  <version>${bouncycastle.version}</version>
+		</dependency>
 -->
 <!--
     <dependency>
@@ -231,6 +239,11 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
       <version>${bouncycastle.version}</version>
     </dependency>
 -->
+    <dependency>
+      <groupId>com.amazonaws</groupId>
+      <artifactId>aws-encryption-sdk-java</artifactId>
+      <version>${aws-encryption-sdk.version}</version>
+    </dependency>
     <dependency>
       <groupId>com.amazonaws</groupId>
       <artifactId>aws-encryption-sdk-java</artifactId>

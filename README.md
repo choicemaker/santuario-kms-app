@@ -15,7 +15,10 @@ Quickstart:
    aws.user.accessKey=<access key>
    aws.user.secretKey=<secret key>
    aws.kms.masterKey=<master key id>
-   escrow.rsa.key=<rsa PKC#8 key file>
+
+   # Optional
+   #aws.kms.endpoint=<AWS KMS end point>
+   #escrow.rsa.key=<rsa PKC#8 key file>
    ```
 
 5. Encrypt an XML file

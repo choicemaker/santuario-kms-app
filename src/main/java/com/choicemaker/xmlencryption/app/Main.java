@@ -51,11 +51,11 @@ public class Main {
 		Usage.usage(isHelp, appInvocation, params);
 	}
 
-	public static int encrypt(String[] params) {
+	public static int encrypt(String[] params) throws Exception {
 		return EncryptionApp.encrypt(params);
 	}
 
-	public static int decrypt(String[] params) {
+	public static int decrypt(String[] params) throws Exception {
 		return DecryptionApp.decrypt(params);
 	}
 

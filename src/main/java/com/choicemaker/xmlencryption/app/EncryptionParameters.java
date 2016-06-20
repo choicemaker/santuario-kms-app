@@ -23,10 +23,11 @@ public class EncryptionParameters {
 
 	private static final Logger logger = Logger
 			.getLogger(EncryptionParameters.class.getName());
-	
+
 	public static final String PN_ACCESSKEY = "aws.user.accessKey";
 	public static final String PN_SECRETKEY = "aws.user.secretKey";
 	public static final String PN_MASTERKEY = "aws.kms.masterKey";
+	public static final String PN_ENDPOINT = "aws.endpoint";
 	public static final String PN_ESCROWKEY = "escrow.rsa.key";
 
 	private final boolean isHelp;
@@ -35,6 +36,7 @@ public class EncryptionParameters {
 	private final String awsAccessKey;
 	private final String awsSecretkey;
 	private final String awsMasterKeyId;
+	private final String awsEndpoint;
 	private final File escrowFile;
 	private final File inputFile;
 
@@ -42,27 +44,43 @@ public class EncryptionParameters {
 
 	/** Help constructor */
 	public EncryptionParameters() {
-		this(true, null, null, null, null, null, null);
+		this(true, null);
 	}
 
 	/** Error constructor */
 	public EncryptionParameters(final boolean isHelp, List<String> errors) {
-		this(isHelp, errors, null, null, null, null, null);
+		this.isHelp = isHelp;
+		if (errors != null) {
+			this.errors.addAll(errors);
+		}
+
+		this.awsAccessKey = null;
+		this.awsSecretkey = null;
+		this.awsMasterKeyId = null;
+		this.awsEndpoint = null;
+		this.escrowFile = null;
+		this.inputFile = null;
+
+		this.hasAwsParameters = false;
+		this.hasEscrowParameters = false;
+
+		logger.fine(this.toString());
 	}
 
 	/** Properties constructor */
 	public EncryptionParameters(final boolean isHelp, List<String> errors,
 			Properties p, File inputFile) {
-		
+
 		this.isHelp = isHelp;
 		if (errors != null) {
 			this.errors.addAll(errors);
 		}
-		
+
 		if (p != null) {
 			this.awsAccessKey = p.getProperty(PN_ACCESSKEY);
 			this.awsSecretkey = p.getProperty(PN_SECRETKEY);
 			this.awsMasterKeyId = p.getProperty(PN_MASTERKEY);
+			this.awsEndpoint = p.getProperty(PN_ENDPOINT);
 			String escrowFileName = p.getProperty(PN_ESCROWKEY);
 			if (escrowFileName != null) {
 				File f = new File(escrowFileName);
@@ -80,36 +98,15 @@ public class EncryptionParameters {
 			this.awsAccessKey = null;
 			this.awsSecretkey = null;
 			this.awsMasterKeyId = null;
+			this.awsEndpoint = null;
 			this.escrowFile = null;
 			this.inputFile = inputFile;
 		}
-		
-		this.hasAwsParameters = StringUtils.nonEmptyString(awsAccessKey) &&
-				StringUtils.nonEmptyString(awsSecretkey) && StringUtils.nonEmptyString(awsMasterKeyId);
+
+		this.hasAwsParameters = StringUtils.nonEmptyString(awsAccessKey)
+				&& StringUtils.nonEmptyString(awsSecretkey)
+				&& StringUtils.nonEmptyString(awsMasterKeyId);
 		this.hasEscrowParameters = escrowFile != null && escrowFile.exists();
-	}
-
-	/** Full constructor */
-	public EncryptionParameters(boolean isHelp, List<String> errors,
-			String awsAccessKey, String awsSecretkey,
-			String awsMasterKeyId, File escrowFile, File inputFile) {
-
-		this.isHelp = isHelp;
-		if (errors != null) {
-			this.errors.addAll(errors);
-		}
-
-		this.awsAccessKey = awsAccessKey;
-		this.awsSecretkey = awsSecretkey;
-		this.awsMasterKeyId = awsMasterKeyId;
-		this.escrowFile = escrowFile;
-		this.inputFile = inputFile;
-		
-		this.hasAwsParameters = StringUtils.nonEmptyString(awsAccessKey) &&
-				StringUtils.nonEmptyString(awsSecretkey) && StringUtils.nonEmptyString(awsMasterKeyId);
-		this.hasEscrowParameters = escrowFile != null && escrowFile.exists();
-
-		logger.fine(this.toString());
 	}
 
 	public boolean isHelp() {
@@ -134,6 +131,10 @@ public class EncryptionParameters {
 
 	public String getAwsMasterKeyId() {
 		return awsMasterKeyId;
+	}
+
+	public String getAwsEndpoint() {
+		return awsEndpoint;
 	}
 
 	public File getEscrowFile() {
