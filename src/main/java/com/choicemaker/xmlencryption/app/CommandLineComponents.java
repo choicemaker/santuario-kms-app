@@ -1,6 +1,5 @@
 package com.choicemaker.xmlencryption.app;
 
-
 public class CommandLineComponents {
 	public final String verb;
 	public final String[] params;

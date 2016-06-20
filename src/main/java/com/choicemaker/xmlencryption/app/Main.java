@@ -37,7 +37,7 @@ public class Main {
 
 			}
 
-		} catch(Throwable t) {
+		} catch (Throwable t) {
 			t.printStackTrace();
 
 		} finally {
