@@ -26,9 +26,6 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
     <santuario-kms.version>1.0-SNAPSHOT</santuario-kms.version>
     <plugin.maven-compiler.version>
     3.3</plugin.maven-compiler.version>
-<!--
-    <plugin.codehaus-exec.version>1.2.1</plugin.codehaus-exec.version>
--->
   </properties>
 
   <build>
@@ -89,94 +86,6 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
                 <goal>shade</goal>
               </goals>
               <configuration>
-                <transformers>
-                  <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-                    <mainClass>com.choicemaker.xmlencryption.app.Main</mainClass>
-                  </transformer>
-                </transformers>
-                <artifactSet>
-                  <excludes>
-                    <exclude>org.bouncycastle:*</exclude>
-<!--
-                    <exclude>com.amazonaws:*</exclude>
-                    <exclude>org.apache*:*</exclude>
-                    <exclude>org.slf4j:*</exclude>
-                    <exclude>commons-logging:commons-logging</exclude>
-
-                    <exclude>com.google*:*</exclude>
-                    <exclude>com.fasterxml*:*</exclude>
-                    <exclude>joda-time:joda-time</exclude>
-                    <exclude>commons-codec:commons-codec</exclude>
-                    <exclude>org.jasypt:*</exclude>
-                    <exclude>org.cryptacular*:*</exclude>
-                    <exclude>org.opensaml:*</exclude>
-                    <exclude>org.codehaus*:*</exclude>
-                    <exclude>net.sf.ehcache:*</exclude>
-                    <exclude>net.shibboleth*:*</exclude>
-                    <exclude>javax*:*</exclude>
--->
-                  </excludes>
-                </artifactSet>
-
-<!--
-				        <minimizeJar>true</minimizeJar>
--->
-<!--
-                <filters>
-                  <filter>
-                    <artifact>*:*</artifact>
-                    <includes>
-                      <include>com/amazonaws/auth/**</include>
-                      <include>com/amazonaws/services/kms/**</include>
-                      <include>com/amazonaws/services/kms/model/**</include>
-                      <include>com/choicemaker/util/**</include>
-                      <include>org/apache/cxf/helpers/**</include>
-                      <include>org/apache/wss4j/common/util/**</include>
-                      <include>org/apache/wss4j/dom/**</include>
-                      <include>org/apache/xml/security/encryption/**</include>
-                      <include>org/apache/xml/security/exceptions/**</include>
-                      <include>org/apache/xml/security/keys/**</include>
-                      <include>org/apache/xml/security/stax/impl/util/**</include>
-                      <include>org/apache/xml/security/utils/**</include>
-                      <include>org/w3c/dom/**</include>
-
-                      <include>com/choicemaker/xmlencryption/**</include>
-                      <include>com/amazonaws/auth/AWSCredentials</include>
-                      <include>com/amazonaws/auth/DefaultAWSCredentialsProviderChain</include>
-                      <include>com/amazonaws/services/kms/AWSKMSClient</include>
-                      <include>com/amazonaws/services/kms/model/DecryptRequest</include>
-                      <include>com/amazonaws/services/kms/model/DecryptResult</include>
-                      <include>com/amazonaws/services/kms/model/GenerateDataKeyRequest</include>
-                      <include>com/amazonaws/services/kms/model/GenerateDataKeyResult</include>
-                      <include>com/choicemaker/util/Precondition</include>
-                      <include>com/choicemaker/util/StringUtils</include>
-                      <include>com/choicemaker/util/SystemPropertyUtils</include>
-                      <include>org/apache/commons/cli/BasicParser</include>
-                      <include>org/apache/commons/cli/CommandLine</include>
-                      <include>org/apache/commons/cli/CommandLineParser</include>
-                      <include>org/apache/commons/cli/Option</include>
-                      <include>org/apache/commons/cli/Options</include>
-                      <include>org/apache/commons/cli/ParseException</include>
-                      <include>org/apache/cxf/helpers/DOMUtils</include>
-                      <include>org/apache/wss4j/common/util/KeyUtils</include>
-                      <include>org/apache/wss4j/common/util/XMLUtils</include>
-                      <include>org/apache/wss4j/dom/WSConstants</include>
-                      <include>org/apache/xml/security/encryption/EncryptedData</include>
-                      <include>org/apache/xml/security/encryption/XMLCipher</include>
-                      <include>org/apache/xml/security/exceptions/Base64DecodingException</include>
-                      <include>org/apache/xml/security/keys/KeyInfo</include>
-                      <include>org/apache/xml/security/stax/impl/util/IDGenerator</include>
-                      <include>org/apache/xml/security/utils/Base64</include>
-                      <include>org/apache/xml/security/utils/EncryptionConstants</include>
-                      <include>org/w3c/dom/Document</include>
-                      <include>org/w3c/dom/Element</include>
-                      <include>org/w3c/dom/Node</include>
-                      <include>org/w3c/dom/NodeList</include>
-                      <include>org/w3c/dom/Text</include>
-                    </includes>
-                  </filter>
-                </filters>
--->
               </configuration>
             </execution>
           </executions>
@@ -197,11 +106,49 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
         <executions>
           <execution>
             <phase>package</phase>
-<!--
              <configuration>
+                <transformers>
+                  <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+                    <mainClass>com.choicemaker.xmlencryption.app.Main</mainClass>
+                  </transformer>
+                </transformers>
+                <artifactSet>
+                  <includes>
+                    <include>com.amazonaws:aws-encryption-sdk-java</include>
+                    <include>com.amazonaws:aws-java-sdk-core</include>
+                    <include>com.amazonaws:aws-java-sdk-kms</include>
+                    <include>com.choicemaker.util:choicemaker-util</include>
+                    <include>com.choicemaker.xml:santuario-kms</include>
+                    <include>com.fasterxml.jackson.core:jackson-annotations</include>
+                    <include>com.fasterxml.jackson.core:jackson-core</include>
+                    <include>com.fasterxml.jackson.core:jackson-databind</include>
+                    <include>com.fasterxml.jackson.dataformat:jackson-dataformat-cbor</include>
+                    <include>commons-cli:commons-cli</include>
+                    <include>commons-logging:commons-logging</include>
+                    <include>joda-time:joda-time</include>
+                    <include>org.apache.commons:commons-lang3</include>
+                    <include>org.apache.cxf:cxf-core</include>
+                    <include>org.apache.httpcomponents:httpclient</include>
+                    <include>org.apache.httpcomponents:httpcore</include>
+                    <include>org.apache.santuario:xmlsec</include>
+                    <include>org.apache.ws.xmlschema:xmlschema-core</include>
+                    <include>org.apache.wss4j:wss4j-ws-security-common</include>
+                    <include>org.apache.wss4j:wss4j-ws-security-dom</include>
+                    <include>org.slf4j:slf4j-api</include>
+                  </includes>
+                  <excludes>
+                    <exclude>org.bouncycastle:*</exclude>
+                    <exclude>org.opensaml:*</exclude>
+                    <exclude>org.codehaus*:*</exclude>
+                    <exclude>net.sf.ehcache:*</exclude>
+                    <exclude>net.shibboleth*:*</exclude>
+                    <exclude>javax*:*</exclude>
+                  </excludes>
+                </artifactSet>
+<!--
                <minimizeJar>true</minimizeJar>
-             </configuration>
 -->
+             </configuration>
           </execution>
         </executions>
       </plugin>
