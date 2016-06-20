@@ -12,6 +12,7 @@
 hs_err_pid*
 
 # miscellaneous
+/dependency-reduced-pom.xml
 *.BAK-??
 *.tgz
 *~
