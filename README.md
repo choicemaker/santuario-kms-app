@@ -1,43 +1,5 @@
 # santuario-kms-app
-Command-line application that encrypts or decrypts XML files using master keys managed by Amazon Web Services Key Management Service (AWS KMS).
+`santuario-kms-app` is a collection of command-line applications that use the [santuario-kms](https://github.com/choicemaker/santuario-kms) library to encrypt or decrypt XML files.
 
-Quickstart:
-
-1. Download santuario-kms-app.jar
-
-2. Create a managed AWS user
-
-3. Create a managed AWS key
-
-4. Create a santuario-kms.properties file
-
-   ```
-   aws.user.accessKey=<access key>
-   aws.user.secretKey=<secret key>
-   aws.kms.masterKey=<master key id>
-
-   # Optional
-   #aws.kms.endpoint=<AWS KMS end point>
-   #escrow.rsa.key=<rsa PKC#8 key file>
-   ```
-
-5. Encrypt an XML file
-
-   ```bash
-   java -jar santuario-kms-app.jar encrypt \
-        -p santuario-kms.properties plaintext.xml > encrypted.xml
-   ```
-
-6. Decrypt an XML file
-
-   ```bash
-   java -jar santuario-kms-app.jar decrypt \
-        -p santuario-kms.properties encrypted.xml > plaintext.xml 
-   ```
-
-References
-
-1. [ChoiceMaker Santuario-KMS project][1]
-
-[1]: https://github.com/choicemaker/santuario-kms
+See the [Quickstart](https://github.com/choicemaker/santuario-kms/wiki/Quickstart) documentation for a summary of how to use this library from a command-line application.  
 
