@@ -7,7 +7,7 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
   <artifactId>santuario-kms-app</artifactId>
   <packaging>jar</packaging>
   <name>Apache Santuario - KMS Application</name>
-  <version>0.1.0-SNAPSHOT</version>
+  <version>0.1.0</version>
 
   <properties>
     <junit.version>4.12</junit.version>
@@ -21,9 +21,7 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
     <apache-wss4j.version>2.1.5</apache-wss4j.version>
     <apache-commons-logging.version>
     1.1.2</apache-commons-logging.version>
-    <choicemaker-util.version>
-    2.7.1-SNAPSHOT</choicemaker-util.version>
-    <santuario-kms.version>0.1.0-SNAPSHOT</santuario-kms.version>
+    <santuario-kms.version>0.1.0</santuario-kms.version>
     <plugin.maven-compiler.version>
     3.3</plugin.maven-compiler.version>
   </properties>
