@@ -17,7 +17,7 @@ import java.util.Properties;
 import java.util.Set;
 import java.util.logging.Logger;
 
-import com.choicemaker.util.StringUtils;
+import com.choicemaker.utilcopy01.StringUtils;
 
 public class EncryptionParameters {
 

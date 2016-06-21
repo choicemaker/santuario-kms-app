@@ -1,6 +1,6 @@
 package com.choicemaker.xmlencryption.app;
 
-import com.choicemaker.util.SystemPropertyUtils;
+import com.choicemaker.utilcopy01.SystemPropertyUtils;
 
 public class Usage {
 
