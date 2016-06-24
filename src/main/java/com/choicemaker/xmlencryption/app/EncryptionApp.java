@@ -1,6 +1,7 @@
 package com.choicemaker.xmlencryption.app;
 
 import static com.choicemaker.xmlencryption.AwsKmsUtils.DEFAULT_AWS_KEY_ENCRYPTION_ALGORITHM;
+import static com.choicemaker.xmlencryption.app.ExitCodes.EXIT_SUCCESS;
 
 import java.io.FileInputStream;
 import java.io.InputStream;
@@ -55,7 +56,7 @@ public class EncryptionApp {
 		StreamResult result = new StreamResult(System.out);
 		transformer.transform(source, result);
 
-		return CommandLineUtils.EXIT_SUCCESS;
+		return EXIT_SUCCESS;
 	}
 
 	public static void main(String[] args) throws Exception {

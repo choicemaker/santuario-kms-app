@@ -11,6 +11,7 @@ public interface ExitCodes {
 
 	int EXIT_SUCCESS = 0;
 	int EXIT_VERB_ERROR = 64;
+	int EXIT_EXTRA_ARGS = 65;
 
 	int EXIT_NOT_YET_IMPLEMENTED = 112;
 	int EXIT_UNKNOWN_ERROR = 113;

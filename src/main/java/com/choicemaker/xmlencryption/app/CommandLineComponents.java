@@ -1,5 +1,14 @@
 package com.choicemaker.xmlencryption.app;
 
+/**
+ * The command line for the Main application consists of:
+ * <ul>
+ * <li>a verb (encrypt, decrypt or help)</li>
+ * <li>an array of any additional String arguments that follow the verb</li>
+ * </ul>
+ * 
+ * @author rphall
+ */
 public class CommandLineComponents {
 	public final String verb;
 	public final String[] params;

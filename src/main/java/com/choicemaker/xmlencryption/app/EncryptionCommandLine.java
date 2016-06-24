@@ -10,7 +10,6 @@
  *******************************************************************************/
 package com.choicemaker.xmlencryption.app;
 
-//import java.io.File;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -29,6 +28,9 @@ import org.apache.commons.cli.ParseException;
 
 import com.choicemaker.xmlencryption.EncryptionParameters;
 
+/**
+ * Parses an array of String arguments into an EncryptionParameters instance
+ */
 public class EncryptionCommandLine {
 
 	public static final String ARG_ENCRYPTION_PROPERTIES = "p";
@@ -190,20 +192,10 @@ public class EncryptionCommandLine {
 		return retVal;
 	}
 
-	// public static String invalidArgument(String argName, String argValue) {
-	// String retVal = "Invalid value ('" + argValue + "') for the '"
-	// + argName + "' argument";
-	// return retVal;
-	// }
-
 	public static String missingArgument(String argName) {
 		String retVal = "Missing the required '" + argName + "' argument";
 		return retVal;
 	}
-
-	// protected static final String OPTION_FLAG = "-";
-	//
-	// protected static final String MAGIC_DIVIDER = "__MAGIC_DIVIDER__";
 
 	private EncryptionCommandLine() {
 	}
