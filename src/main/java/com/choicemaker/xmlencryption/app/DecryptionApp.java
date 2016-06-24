@@ -15,6 +15,7 @@ import org.w3c.dom.Document;
 import com.amazonaws.auth.AWSCredentials;
 import com.amazonaws.auth.BasicAWSCredentials;
 import com.choicemaker.xmlencryption.DocumentDecryptor;
+import com.choicemaker.xmlencryption.EncryptionParameters;
 
 public class DecryptionApp {
 
@@ -25,7 +26,7 @@ public class DecryptionApp {
 				.parseCommandLine(args);
 		AWSCredentials creds = new BasicAWSCredentials(
 				params.getAwsAccessKey(), params.getAwsSecretkey());
-		final DocumentDecryptor encryptor = new DocumentDecryptor(
+		final DocumentDecryptor decryptor = new DocumentDecryptor(
 				params.getAwsEndpoint(), creds);
 
 		// Read the input
@@ -38,8 +39,8 @@ public class DecryptionApp {
 		DocumentBuilder builder = XMLUtils.createDocumentBuilder(false);
 		Document doc = builder.parse(sourceDocument);
 
-		// Encrypt the input
-		encryptor.decrypt(doc);
+		// Decrypt the input
+		decryptor.decrypt(doc);
 
 		// Output the result
 		TransformerFactory tFactory = TransformerFactory.newInstance();

@@ -17,7 +17,7 @@ import org.w3c.dom.Document;
 import com.amazonaws.auth.AWSCredentials;
 import com.amazonaws.auth.BasicAWSCredentials;
 import com.choicemaker.xmlencryption.DocumentEncryptor;
-import com.choicemaker.xmlencryption.EncryptedKeyFactory;
+import com.choicemaker.xmlencryption.EncryptionParameters;
 import com.choicemaker.xmlencryption.SecretKeyInfoFactory;
 
 public class EncryptionApp {
@@ -33,8 +33,7 @@ public class EncryptionApp {
 				params.getAwsMasterKeyId(),
 				DEFAULT_AWS_KEY_ENCRYPTION_ALGORITHM, params.getAwsEndpoint(),
 				creds);
-		EncryptedKeyFactory ekf = new EncryptedKeyFactory();
-		final DocumentEncryptor encryptor = new DocumentEncryptor(skif, ekf);
+		final DocumentEncryptor encryptor = new DocumentEncryptor(skif);
 
 		// Read the input
 		InputStream sourceDocument;

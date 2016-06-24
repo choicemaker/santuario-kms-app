@@ -27,6 +27,8 @@ import org.apache.commons.cli.Option;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 
+import com.choicemaker.xmlencryption.EncryptionParameters;
+
 public class EncryptionCommandLine {
 
 	public static final String ARG_ENCRYPTION_PROPERTIES = "p";
