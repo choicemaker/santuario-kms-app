@@ -1,8 +1,8 @@
 package com.choicemaker.xmlencryption.app;
 
-import static com.choicemaker.xmlencryption.app.ExitCodes.EXIT_SUCCESS;
-import static com.choicemaker.xmlencryption.app.ExitCodes.EXIT_UNKNOWN_ERROR;
-import static com.choicemaker.xmlencryption.app.ExitCodes.EXIT_VERB_ERROR;
+import static com.choicemaker.xmlencryption.ErrorCodes.EXIT_SUCCESS;
+import static com.choicemaker.xmlencryption.ErrorCodes.EXIT_UNKNOWN_ERROR;
+import static com.choicemaker.xmlencryption.ErrorCodes.EXIT_VERB_ERROR;
 
 /**
  * The main application of the santuario-kms-app module. This application is run
@@ -37,8 +37,7 @@ import static com.choicemaker.xmlencryption.app.ExitCodes.EXIT_VERB_ERROR;
  * If no other arguments are specified, the application will read input from
  * standard input. If one additional argument is specified, the argument is
  * treated as the name of a file to encrypt or decrypt. If two or more one
- * additional arguments are specified, only the first one is used (as a file
- * name) and the others are ignored.
+ * additional arguments are specified, processing terminates with an error of {.
  * </p>
  * <p>
  * If processing is successful, the exit code will be {@link EXIT_SUCCESS 0} and

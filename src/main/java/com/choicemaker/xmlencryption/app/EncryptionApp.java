@@ -1,7 +1,7 @@
 package com.choicemaker.xmlencryption.app;
 
 import static com.choicemaker.xmlencryption.AwsKmsUtils.DEFAULT_AWS_KEY_ENCRYPTION_ALGORITHM;
-import static com.choicemaker.xmlencryption.app.ExitCodes.EXIT_SUCCESS;
+import static com.choicemaker.xmlencryption.ErrorCodes.EXIT_SUCCESS;
 
 import java.io.FileInputStream;
 import java.io.InputStream;
@@ -25,38 +25,46 @@ public class EncryptionApp {
 
 	public static int encrypt(String[] args) throws Exception {
 
-		// Create a document encryptor
+		int retVal;
 		EncryptionParameters params = EncryptionCommandLine
 				.parseCommandLine(args);
-		AWSCredentials creds = new BasicAWSCredentials(
-				params.getAwsAccessKey(), params.getAwsSecretkey());
-		SecretKeyInfoFactory skif = new SecretKeyInfoFactory(
-				params.getAwsMasterKeyId(),
-				DEFAULT_AWS_KEY_ENCRYPTION_ALGORITHM, params.getAwsEndpoint(),
-				creds);
-		final DocumentEncryptor encryptor = new DocumentEncryptor(skif);
+		if (params.hasErrors()) {
+			retVal = params.computeSummaryCode();
 
-		// Read the input
-		InputStream sourceDocument;
-		if (params.getInputFile() == null) {
-			sourceDocument = System.in;
 		} else {
-			sourceDocument = new FileInputStream(params.getInputFile());
+			// Construct a encryptor
+			AWSCredentials creds = new BasicAWSCredentials(
+					params.getAwsAccessKey(), params.getAwsSecretkey());
+			SecretKeyInfoFactory skif = new SecretKeyInfoFactory(
+					params.getAwsMasterKeyId(),
+					DEFAULT_AWS_KEY_ENCRYPTION_ALGORITHM,
+					params.getAwsEndpoint(), creds);
+			final DocumentEncryptor encryptor = new DocumentEncryptor(skif);
+
+			// Read the input
+			InputStream sourceDocument;
+			if (params.getInputFile() == null) {
+				sourceDocument = System.in;
+			} else {
+				sourceDocument = new FileInputStream(params.getInputFile());
+			}
+			DocumentBuilder builder = XMLUtils.createDocumentBuilder(false);
+			Document doc = builder.parse(sourceDocument);
+
+			// Encrypt the input
+			encryptor.encrypt(doc);
+
+			// Output the result
+			TransformerFactory tFactory = TransformerFactory.newInstance();
+			Transformer transformer = tFactory.newTransformer();
+			DOMSource source = new DOMSource(doc);
+			StreamResult result = new StreamResult(System.out);
+			transformer.transform(source, result);
+
+			return EXIT_SUCCESS;
 		}
-		DocumentBuilder builder = XMLUtils.createDocumentBuilder(false);
-		Document doc = builder.parse(sourceDocument);
 
-		// Encrypt the input
-		encryptor.encrypt(doc);
-
-		// Output the result
-		TransformerFactory tFactory = TransformerFactory.newInstance();
-		Transformer transformer = tFactory.newTransformer();
-		DOMSource source = new DOMSource(doc);
-		StreamResult result = new StreamResult(System.out);
-		transformer.transform(source, result);
-
-		return EXIT_SUCCESS;
+		return retVal;
 	}
 
 	public static void main(String[] args) throws Exception {

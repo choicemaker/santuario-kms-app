@@ -1,6 +1,6 @@
 package com.choicemaker.xmlencryption.app;
 
-import static com.choicemaker.xmlencryption.app.ExitCodes.EXIT_SUCCESS;
+import static com.choicemaker.xmlencryption.ErrorCodes.EXIT_SUCCESS;
 
 import java.io.FileInputStream;
 import java.io.InputStream;
@@ -23,35 +23,43 @@ public class DecryptionApp {
 
 	public static int decrypt(String[] args) throws Exception {
 
-		// Create a document decryptor
+		int retVal;
 		EncryptionParameters params = EncryptionCommandLine
 				.parseCommandLine(args);
-		AWSCredentials creds = new BasicAWSCredentials(
-				params.getAwsAccessKey(), params.getAwsSecretkey());
-		final DocumentDecryptor decryptor = new DocumentDecryptor(
-				params.getAwsEndpoint(), creds);
+		if (params.hasErrors()) {
+			retVal = params.computeSummaryCode();
 
-		// Read the input
-		InputStream sourceDocument;
-		if (params.getInputFile() == null) {
-			sourceDocument = System.in;
 		} else {
-			sourceDocument = new FileInputStream(params.getInputFile());
+			// Construct a decryptor
+			AWSCredentials creds = new BasicAWSCredentials(
+					params.getAwsAccessKey(), params.getAwsSecretkey());
+			final DocumentDecryptor decryptor = new DocumentDecryptor(
+					params.getAwsEndpoint(), creds);
+
+			// Read the input
+			InputStream sourceDocument;
+			if (params.getInputFile() == null) {
+				sourceDocument = System.in;
+			} else {
+				sourceDocument = new FileInputStream(params.getInputFile());
+			}
+			DocumentBuilder builder = XMLUtils.createDocumentBuilder(false);
+			Document doc = builder.parse(sourceDocument);
+
+			// Decrypt the input
+			decryptor.decrypt(doc);
+
+			// Output the result
+			TransformerFactory tFactory = TransformerFactory.newInstance();
+			Transformer transformer = tFactory.newTransformer();
+			DOMSource source = new DOMSource(doc);
+			StreamResult result = new StreamResult(System.out);
+			transformer.transform(source, result);
+
+			retVal = EXIT_SUCCESS;
 		}
-		DocumentBuilder builder = XMLUtils.createDocumentBuilder(false);
-		Document doc = builder.parse(sourceDocument);
 
-		// Decrypt the input
-		decryptor.decrypt(doc);
-
-		// Output the result
-		TransformerFactory tFactory = TransformerFactory.newInstance();
-		Transformer transformer = tFactory.newTransformer();
-		DOMSource source = new DOMSource(doc);
-		StreamResult result = new StreamResult(System.out);
-		transformer.transform(source, result);
-
-		return EXIT_SUCCESS;
+		return retVal;
 	}
 
 	public static void main(String[] args) throws Exception {
