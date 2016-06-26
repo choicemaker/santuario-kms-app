@@ -207,16 +207,16 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
       <artifactId>aws-encryption-sdk-java</artifactId>
       <version>${aws-encryption-sdk.version}</version>
     </dependency>
-    <dependency>
-      <groupId>com.amazonaws</groupId>
-      <artifactId>aws-encryption-sdk-java</artifactId>
-      <version>${aws-encryption-sdk.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>com.amazonaws</groupId>
-      <artifactId>aws-java-sdk</artifactId>
-      <version>${aws-java-sdk.version}</version>
-    </dependency>
+	<dependency>
+	  <groupId>com.amazonaws</groupId>
+	  <artifactId>aws-java-sdk-core</artifactId>
+	  <version>${aws-java-sdk.version}</version>
+	</dependency>
+	<dependency>
+	  <groupId>com.amazonaws</groupId>
+	  <artifactId>aws-java-sdk-kms</artifactId>
+	  <version>${aws-java-sdk.version}</version>
+	</dependency>
     <dependency>
       <groupId>commons-logging</groupId>
       <artifactId>commons-logging</artifactId>
