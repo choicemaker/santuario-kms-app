@@ -19,6 +19,7 @@ import com.amazonaws.auth.AWSCredentials;
 import com.amazonaws.auth.BasicAWSCredentials;
 import com.choicemaker.xmlencryption.DocumentEncryptor;
 import com.choicemaker.xmlencryption.EncryptionParameters;
+import com.choicemaker.xmlencryption.AwsKmsSecretKeyInfoFactory;
 import com.choicemaker.xmlencryption.SecretKeyInfoFactory;
 
 public class EncryptionApp {
@@ -35,7 +36,7 @@ public class EncryptionApp {
 			// Construct a encryptor
 			AWSCredentials creds = new BasicAWSCredentials(
 					params.getAwsAccessKey(), params.getAwsSecretkey());
-			SecretKeyInfoFactory skif = new SecretKeyInfoFactory(
+			SecretKeyInfoFactory skif = new AwsKmsSecretKeyInfoFactory(
 					params.getAwsMasterKeyId(),
 					DEFAULT_AWS_KEY_ENCRYPTION_ALGORITHM,
 					params.getAwsEndpoint(), creds);
