@@ -1,6 +1,6 @@
 package com.choicemaker.xmlencryption.app;
 
-import static com.choicemaker.xmlencryption.ErrorCodes.EXIT_SUCCESS;
+import static com.choicemaker.xmlencryption.app.ExitCodes.EXIT_SUCCESS;
 
 import java.io.FileInputStream;
 import java.io.InputStream;

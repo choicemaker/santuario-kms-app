@@ -1,8 +1,8 @@
 package com.choicemaker.xmlencryption.app;
 
-import static com.choicemaker.xmlencryption.ErrorCodes.EXIT_SUCCESS;
-import static com.choicemaker.xmlencryption.ErrorCodes.EXIT_UNKNOWN_ERROR;
-import static com.choicemaker.xmlencryption.ErrorCodes.EXIT_VERB_ERROR;
+import static com.choicemaker.xmlencryption.app.ExitCodes.EXIT_SUCCESS;
+import static com.choicemaker.xmlencryption.app.ExitCodes.EXIT_UNKNOWN_ERROR;
+import static com.choicemaker.xmlencryption.app.ExitCodes.EXIT_VERB_ERROR;
 
 /**
  * The main application of the santuario-kms-app module. This application is run
