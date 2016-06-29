@@ -1,6 +1,5 @@
 package com.choicemaker.xmlencryption.app;
 
-import static com.choicemaker.xmlencryption.AwsKmsUtils.DEFAULT_AWS_KEY_ENCRYPTION_ALGORITHM;
 import static com.choicemaker.xmlencryption.app.ExitCodes.EXIT_SUCCESS;
 
 import java.io.FileInputStream;
@@ -17,12 +16,14 @@ import org.w3c.dom.Document;
 
 import com.amazonaws.auth.AWSCredentials;
 import com.amazonaws.auth.BasicAWSCredentials;
+import com.choicemaker.xmlencryption.AwsKmsCredentialSet;
+import com.choicemaker.xmlencryption.AwsKmsEncryptionScheme;
 import com.choicemaker.xmlencryption.DocumentEncryptor;
 import com.choicemaker.xmlencryption.EncryptionParameters;
-import com.choicemaker.xmlencryption.AwsKmsSecretKeyInfoFactory;
-import com.choicemaker.xmlencryption.SecretKeyInfoFactory;
 
 public class EncryptionApp {
+
+	public static final String DEFAULT_CREDENTIALSET_NAME = "default";
 
 	public static int encrypt(String[] args) throws Exception {
 
@@ -34,13 +35,24 @@ public class EncryptionApp {
 
 		} else {
 			// Construct a encryptor
-			AWSCredentials creds = new BasicAWSCredentials(
+//			final AwsKmsEncryptionScheme es = new AwsKmsEncryptionScheme();
+//			final AWSCredentials creds = new BasicAWSCredentials(
+//					params.getAwsAccessKey(), params.getAwsSecretkey());
+//			final AwsKmsCredentialSet ec = new AwsKmsCredentialSet(creds,
+//					DEFAULT_CREDENTIALSET_NAME, params.getAwsMasterKeyId(),
+//					params.getAwsEndpoint());
+//			final DocumentDecryptor decryptor = new DocumentDecryptor(es, ec);
+			final AwsKmsEncryptionScheme es = new AwsKmsEncryptionScheme();
+			final AWSCredentials creds = new BasicAWSCredentials(
 					params.getAwsAccessKey(), params.getAwsSecretkey());
-			SecretKeyInfoFactory skif = new AwsKmsSecretKeyInfoFactory(
-					params.getAwsMasterKeyId(),
-					DEFAULT_AWS_KEY_ENCRYPTION_ALGORITHM,
-					params.getAwsEndpoint(), creds);
-			final DocumentEncryptor encryptor = new DocumentEncryptor(skif);
+			final AwsKmsCredentialSet ec = new AwsKmsCredentialSet(creds,
+					DEFAULT_CREDENTIALSET_NAME, params.getAwsMasterKeyId(),
+					params.getAwsEndpoint());
+//			SecretKeyInfoFactory skif = new AwsKmsSecretKeyInfoFactory(
+//					params.getAwsMasterKeyId(),
+//					DefaultAlgorithms.DEFAULT_AWS_KEY_ENCRYPTION_ALGORITHM,
+//					params.getAwsEndpoint(), creds);
+			final DocumentEncryptor encryptor = new DocumentEncryptor(es, ec);
 
 			// Read the input
 			InputStream sourceDocument;

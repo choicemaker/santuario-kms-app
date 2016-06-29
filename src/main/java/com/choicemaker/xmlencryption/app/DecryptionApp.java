@@ -16,10 +16,14 @@ import org.w3c.dom.Document;
 
 import com.amazonaws.auth.AWSCredentials;
 import com.amazonaws.auth.BasicAWSCredentials;
+import com.choicemaker.xmlencryption.AwsKmsCredentialSet;
+import com.choicemaker.xmlencryption.AwsKmsEncryptionScheme;
 import com.choicemaker.xmlencryption.DocumentDecryptor;
 import com.choicemaker.xmlencryption.EncryptionParameters;
 
 public class DecryptionApp {
+
+	public static final String DEFAULT_CREDENTIALSET_NAME = "default";
 
 	public static int decrypt(String[] args) throws Exception {
 
@@ -31,10 +35,13 @@ public class DecryptionApp {
 
 		} else {
 			// Construct a decryptor
-			AWSCredentials creds = new BasicAWSCredentials(
+			final AwsKmsEncryptionScheme es = new AwsKmsEncryptionScheme();
+			final AWSCredentials creds = new BasicAWSCredentials(
 					params.getAwsAccessKey(), params.getAwsSecretkey());
-			final DocumentDecryptor decryptor = new DocumentDecryptor(
-					params.getAwsEndpoint(), creds);
+			final AwsKmsCredentialSet ec = new AwsKmsCredentialSet(creds,
+					DEFAULT_CREDENTIALSET_NAME, params.getAwsMasterKeyId(),
+					params.getAwsEndpoint());
+			final DocumentDecryptor decryptor = new DocumentDecryptor(es, ec);
 
 			// Read the input
 			InputStream sourceDocument;
