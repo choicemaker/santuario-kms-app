@@ -1,3 +1,13 @@
+/*
+ * Copyright (c) 2016 ChoiceMaker LLC and others.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License
+ * v1.0 which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *     ChoiceMaker LLC - initial API and implementation
+ */
 package com.choicemaker.xmlencryption.app;
 
 import static com.choicemaker.xmlencryption.app.ExitCodes.EXIT_SUCCESS;
@@ -44,7 +54,7 @@ import static com.choicemaker.xmlencryption.app.ExitCodes.EXIT_VERB_ERROR;
  * output from the application will be displayed on standard out. If processing
  * is unsuccessful, the exit code will be greater than 0, in the range 64 to 113
  * inclusive, an error message will be displayed on standard error.
- * 
+ *
  * @author rphall
  */
 public class Main {
