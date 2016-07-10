@@ -45,23 +45,12 @@ public class EncryptionApp {
 
 		} else {
 			// Construct a encryptor
-//			final AwsKmsEncryptionScheme es = new AwsKmsEncryptionScheme();
-//			final AWSCredentials creds = new BasicAWSCredentials(
-//					params.getAwsAccessKey(), params.getAwsSecretkey());
-//			final AwsKmsCredentialSet ec = new AwsKmsCredentialSet(creds,
-//					DEFAULT_CREDENTIALSET_NAME, params.getAwsMasterKeyId(),
-//					params.getAwsEndpoint());
-//			final DocumentDecryptor decryptor = new DocumentDecryptor(es, ec);
 			final AwsKmsEncryptionScheme es = new AwsKmsEncryptionScheme();
 			final AWSCredentials creds = new BasicAWSCredentials(
 					params.getAwsAccessKey(), params.getAwsSecretkey());
 			final AwsKmsCredentialSet ec = new AwsKmsCredentialSet(creds,
 					DEFAULT_CREDENTIALSET_NAME, params.getAwsMasterKeyId(),
 					params.getAwsEndpoint());
-//			SecretKeyInfoFactory skif = new AwsKmsSecretKeyInfoFactory(
-//					params.getAwsMasterKeyId(),
-//					DefaultAlgorithms.DEFAULT_AWS_KEY_ENCRYPTION_ALGORITHM,
-//					params.getAwsEndpoint(), creds);
 			final DocumentEncryptor encryptor = new DocumentEncryptor(es, ec);
 
 			// Read the input
