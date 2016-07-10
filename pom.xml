@@ -10,6 +10,7 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
   <version>0.1.1-SNAPSHOT</version>
 
   <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <junit.version>4.12</junit.version>
     <slf4j.version>1.7.13</slf4j.version>
     <xmlsec.version>2.0.6</xmlsec.version>
@@ -24,6 +25,8 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
     <santuario-kms.version>0.1.1-SNAPSHOT</santuario-kms.version>
     <plugin.maven-compiler.version>
     3.3</plugin.maven-compiler.version>
+    <plugin.maven-surefire.version>
+    2.19.1</plugin.maven-surefire.version>
   </properties>
 
   <distributionManagement>
@@ -113,6 +116,7 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-surefire-plugin</artifactId>
+        <version>${plugin.maven-surefire.version}</version>
         <configuration>
           <systemPropertyVariables></systemPropertyVariables>
         </configuration>
@@ -184,20 +188,6 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
       <artifactId>santuario-kms</artifactId>
       <version>${santuario-kms.version}</version>
     </dependency>
-<!--
-		<dependency>
-		  <groupId>org.bouncycastle</groupId>
-	      <artifactId>bcprov-jdk15on</artifactId>
-		  <version>${bouncycastle.version}</version>
-		</dependency>
--->
-<!--
-    <dependency>
-      <groupId>org.bouncycastle</groupId>
-      <artifactId>bcpkix-jdk15on</artifactId>
-      <version>${bouncycastle.version}</version>
-    </dependency>
--->
     <dependency>
       <groupId>com.amazonaws</groupId>
       <artifactId>aws-encryption-sdk-java</artifactId>
