@@ -26,7 +26,13 @@ import org.apache.commons.cli.Option;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 
+import com.choicemaker.utilcopy01.StringUtils;
+import com.choicemaker.xmlencryption.AwsKmsCredentialSet;
+import com.choicemaker.xmlencryption.AwsKmsEncryptionScheme;
+import com.choicemaker.xmlencryption.CredentialSet;
+import com.choicemaker.xmlencryption.DefaultAlgorithms;
 import com.choicemaker.xmlencryption.EncryptionParameters;
+import com.choicemaker.xmlencryption.EncryptionScheme;
 
 /**
  * Parses an array of String arguments into an EncryptionParameters instance
@@ -34,7 +40,8 @@ import com.choicemaker.xmlencryption.EncryptionParameters;
 public class EncryptionCommandLine {
 
 	public static final String ARG_ENCRYPTION_PROPERTIES = "p";
-	public static final String DESC_ENCRYPTION_PROPERTIES = "[REQUIRED] property file specifying encryption parameters";
+	public static final String DESC_ENCRYPTION_PROPERTIES =
+		"[REQUIRED] property file specifying encryption parameters";
 
 	public static final String COMMAND_LINE = "LogPartitioner";
 
@@ -74,21 +81,22 @@ public class EncryptionCommandLine {
 	 *         a request for help
 	 * @param args
 	 *            non-null array of command-line arguments
-	 * @return encryption or decryption parameters, or null if help is requested
-	 *         or errors are detected.
+	 * @return non-null encryption or decryption parameters
 	 * @throws ParseException
 	 * @throws IOException
 	 */
 	public static EncryptionParameters parseCommandLine(final boolean isHelp,
 			String[] args) {
 
-		EncryptionParameters retVal;
+		EncryptionParameters retVal = null;
 
 		if (args == null || args.length == 0) {
 			retVal = new EncryptionParameters();
 			assert retVal.isHelp();
 
 		} else {
+			String credentialSetName = null;
+			String encryptionSchemeId = null;
 
 			List<String> errors = new ArrayList<>();
 			Properties props = null;
@@ -107,8 +115,8 @@ public class EncryptionCommandLine {
 
 			if (cl != null) {
 				// Required properties file
-				String propsFileName = cl
-						.getOptionValue(ARG_ENCRYPTION_PROPERTIES);
+				String propsFileName =
+					cl.getOptionValue(ARG_ENCRYPTION_PROPERTIES);
 				if (propsFileName != null) {
 					propsFileName = propsFileName.trim();
 				}
@@ -126,14 +134,19 @@ public class EncryptionCommandLine {
 							fr = new FileReader(f);
 							props = new Properties();
 							props.load(fr);
+							// HACK use base name of file as the name of the
+							// credential set
+							credentialSetName = f.getName();
+							// END HACK
 						} catch (FileNotFoundException e) {
-							String msg = "Unexpected error (does file '"
-									+ propsFileName + "' exist?): "
-									+ e.toString();
+							String msg =
+								"Unexpected error (does file '" + propsFileName
+										+ "' exist?): " + e.toString();
 							errors.add(msg);
 						} catch (IOException e) {
-							String msg = "Unable to load encryption properties from '"
-									+ propsFileName + "': " + e.toString();
+							String msg =
+								"Unable to load encryption properties from '"
+										+ propsFileName + "': " + e.toString();
 							errors.add(msg);
 						}
 					}
@@ -183,11 +196,25 @@ public class EncryptionCommandLine {
 			} else {
 				assert errors.isEmpty();
 				assert props != null;
-				retVal = new EncryptionParameters(isHelp, errors, props,
-						inputFile);
+
+				// HACK hard-coded AwsKms encryption scheme
+				encryptionSchemeId = AwsKmsEncryptionScheme.DEFAULT_SCHEME_ID;
+				EncryptionScheme es = new AwsKmsEncryptionScheme(
+						DefaultAlgorithms.DEFAULT_AWS_KEY_ENCRYPTION_ALGORITHM,
+						DefaultAlgorithms.DEFAULT_DOC_ENCRYPT_ALGORITHM,
+						encryptionSchemeId);
+				// END HACK
+
+				assert StringUtils.nonEmptyString(credentialSetName);
+				CredentialSet cs =
+					new AwsKmsCredentialSet(credentialSetName, props);
+
+				retVal =
+					new EncryptionParameters(isHelp, errors, es, cs, inputFile);
 			}
 
 		}
+		assert retVal != null;
 
 		return retVal;
 	}

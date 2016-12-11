@@ -24,12 +24,10 @@ import javax.xml.transform.stream.StreamResult;
 import org.apache.xml.security.utils.XMLUtils;
 import org.w3c.dom.Document;
 
-import com.amazonaws.auth.AWSCredentials;
-import com.amazonaws.auth.BasicAWSCredentials;
-import com.choicemaker.xmlencryption.AwsKmsCredentialSet;
-import com.choicemaker.xmlencryption.AwsKmsEncryptionScheme;
+import com.choicemaker.xmlencryption.CredentialSet;
 import com.choicemaker.xmlencryption.DocumentEncryptor;
 import com.choicemaker.xmlencryption.EncryptionParameters;
+import com.choicemaker.xmlencryption.EncryptionScheme;
 
 public class EncryptionApp {
 
@@ -38,20 +36,16 @@ public class EncryptionApp {
 	public static int encrypt(String[] args) throws Exception {
 
 		int retVal;
-		EncryptionParameters params = EncryptionCommandLine
-				.parseCommandLine(args);
+		EncryptionParameters params =
+			EncryptionCommandLine.parseCommandLine(args);
 		if (params.hasErrors()) {
 			retVal = params.computeSummaryCode();
 
 		} else {
-			// Construct a encryptor
-			final AwsKmsEncryptionScheme es = new AwsKmsEncryptionScheme();
-			final AWSCredentials creds = new BasicAWSCredentials(
-					params.getAwsAccessKey(), params.getAwsSecretkey());
-			final AwsKmsCredentialSet ec = new AwsKmsCredentialSet(creds,
-					DEFAULT_CREDENTIALSET_NAME, params.getAwsMasterKeyId(),
-					params.getAwsEndpoint());
-			final DocumentEncryptor encryptor = new DocumentEncryptor(es, ec);
+			// Construct an encryptor
+			final EncryptionScheme es = params.getEncryptionScheme();
+			final CredentialSet cs = params.getCredentialSet();
+			final DocumentEncryptor encryptor = new DocumentEncryptor(es, cs);
 
 			// Read the input
 			InputStream sourceDocument;

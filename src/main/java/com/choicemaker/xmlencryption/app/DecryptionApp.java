@@ -24,12 +24,10 @@ import javax.xml.transform.stream.StreamResult;
 import org.apache.xml.security.utils.XMLUtils;
 import org.w3c.dom.Document;
 
-import com.amazonaws.auth.AWSCredentials;
-import com.amazonaws.auth.BasicAWSCredentials;
-import com.choicemaker.xmlencryption.AwsKmsCredentialSet;
-import com.choicemaker.xmlencryption.AwsKmsEncryptionScheme;
+import com.choicemaker.xmlencryption.CredentialSet;
 import com.choicemaker.xmlencryption.DocumentDecryptor;
 import com.choicemaker.xmlencryption.EncryptionParameters;
+import com.choicemaker.xmlencryption.EncryptionScheme;
 
 public class DecryptionApp {
 
@@ -45,13 +43,9 @@ public class DecryptionApp {
 
 		} else {
 			// Construct a decryptor
-			final AwsKmsEncryptionScheme es = new AwsKmsEncryptionScheme();
-			final AWSCredentials creds = new BasicAWSCredentials(
-					params.getAwsAccessKey(), params.getAwsSecretkey());
-			final AwsKmsCredentialSet ec = new AwsKmsCredentialSet(creds,
-					DEFAULT_CREDENTIALSET_NAME, params.getAwsMasterKeyId(),
-					params.getAwsEndpoint());
-			final DocumentDecryptor decryptor = new DocumentDecryptor(es, ec);
+			final EncryptionScheme es = params.getEncryptionScheme();
+			final CredentialSet cs = params.getCredentialSet();
+			final DocumentDecryptor decryptor = new DocumentDecryptor(es, cs);
 
 			// Read the input
 			InputStream sourceDocument;
