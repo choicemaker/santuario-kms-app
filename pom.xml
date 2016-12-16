@@ -13,7 +13,7 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <junit.version>4.12</junit.version>
     <slf4j.version>1.7.13</slf4j.version>
-    <xmlsec.version>2.0.6</xmlsec.version>
+    <xmlsec.version>2.1.0-SNAPSHOT</xmlsec.version>
     <bouncycastle.version>1.54</bouncycastle.version>
     <aws-java-sdk.version>1.11.5</aws-java-sdk.version>
     <aws-encryption-sdk.version>
@@ -195,16 +195,16 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
       <artifactId>aws-encryption-sdk-java</artifactId>
       <version>${aws-encryption-sdk.version}</version>
     </dependency>
-	<dependency>
-	  <groupId>com.amazonaws</groupId>
-	  <artifactId>aws-java-sdk-core</artifactId>
-	  <version>${aws-java-sdk.version}</version>
-	</dependency>
-	<dependency>
-	  <groupId>com.amazonaws</groupId>
-	  <artifactId>aws-java-sdk-kms</artifactId>
-	  <version>${aws-java-sdk.version}</version>
-	</dependency>
+  <dependency>
+    <groupId>com.amazonaws</groupId>
+    <artifactId>aws-java-sdk-core</artifactId>
+    <version>${aws-java-sdk.version}</version>
+  </dependency>
+  <dependency>
+    <groupId>com.amazonaws</groupId>
+    <artifactId>aws-java-sdk-kms</artifactId>
+    <version>${aws-java-sdk.version}</version>
+  </dependency>
     <dependency>
       <groupId>commons-logging</groupId>
       <artifactId>commons-logging</artifactId>
