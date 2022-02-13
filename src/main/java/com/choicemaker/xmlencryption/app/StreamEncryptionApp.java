@@ -39,24 +39,25 @@ public class StreamEncryptionApp {
 			retVal = params.computeSummaryCode();
 
 		} else {
-			// Construct an encryptor
-			final EncryptionScheme es = params.getEncryptionScheme();
-			final CredentialSet cs = params.getCredentialSet();
-			final StreamEncryptor encryptor = new StreamEncryptor(es, cs);
-
-			// Read the input
-			InputStream sourceDocument = null;
-			if (params.getInputFile() == null) {
-				sourceDocument = System.in;
-			} else {
-				sourceDocument = new FileInputStream(params.getInputFile());
-			}
-			assert sourceDocument != null;
-
-			// Encrypt the input
-			OutputStream os = encryptor.encrypt(sourceDocument);
-
 			throw new Error("Not yet implemented");
+
+			// Construct an encryptor
+//			final EncryptionScheme es = params.getEncryptionScheme();
+//			final CredentialSet cs = params.getCredentialSet();
+//			final StreamEncryptor encryptor = new StreamEncryptor(es, cs);
+//
+//			// Read the input
+//			InputStream sourceDocument = null;
+//			if (params.getInputFile() == null) {
+//				sourceDocument = System.in;
+//			} else {
+//				sourceDocument = new FileInputStream(params.getInputFile());
+//			}
+//			assert sourceDocument != null;
+//
+//			// Encrypt the input
+//			OutputStream os = encryptor.encrypt(sourceDocument);
+//
 //			// Output the result
 //			TransformerFactory tFactory = TransformerFactory.newInstance();
 //			Transformer transformer = tFactory.newTransformer();

@@ -201,7 +201,7 @@ public class EncryptionCommandLine {
 				encryptionSchemeId = AwsKmsEncryptionScheme.DEFAULT_SCHEME_ID;
 				EncryptionScheme es = new AwsKmsEncryptionScheme(
 						DefaultAlgorithms.DEFAULT_AWS_KEY_ENCRYPTION_ALGORITHM,
-						DefaultAlgorithms.DEFAULT_DOC_ENCRYPT_ALGORITHM,
+						DefaultAlgorithms.DEFAULT_DOC_ENCRYPT_ALGO,
 						encryptionSchemeId);
 				// END HACK
 
